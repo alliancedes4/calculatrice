@@ -5,22 +5,27 @@ Main file for the calculator
 import logging
 from tkinter import *
 
-from src.functions import *
-from src.vars import (
-    expression,
-    geometry,
-    boutons,
-    noir,
-    bleu,
-    rouge,
-    white,
-    ligne,
-    colonne,
-)
-
 
 def main():
-    """ """
+    """main function to run the calculator app"""
+
+    from src.functions import appuyer, calculer, effacer
+    from src.vars import (
+        bleu,
+        boutons,
+        colonne,
+        geometry,  # expression,
+        ligne,
+        noir,
+        rouge,
+        white,
+    )
+
+    global equation
+    global expression
+
+    expression = ""
+    equation = ""
 
     gui = Tk()
 
@@ -38,14 +43,17 @@ def main():
     resultat.grid(columnspan=4)
 
     # Boutons
-
     for bouton in boutons:
         b = Label(gui, text=str(bouton), bg=bleu, fg=white, height=4, width=6)
 
         # Rendre le texte clicable
         b.bind(
             "<Button-1>",
-            lambda e, bouton=bouton: appuyer(bouton, expression, equation),
+            lambda e, bouton=bouton: appuyer(
+                bouton,
+                expression=expression,
+                equation=equation,
+            ),
         )
 
         b.grid(row=ligne, column=colonne)
@@ -58,7 +66,7 @@ def main():
     b = Label(gui, text="Effacer", bg=rouge, fg=white, height=4, width=26)
     b.bind(
         "<Button-1>",
-        lambda e: effacer(expression, equation),
+        lambda e: effacer(expression=expression, equation=equation),
     )
     b.grid(columnspan=4)
     logging.warning("Le script a été exécuté avec succès")
