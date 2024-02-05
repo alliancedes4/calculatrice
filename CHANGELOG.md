@@ -6,3 +6,8 @@
 - [x] update readme 
 - [x] black code
 - [x] create src/
+
+
+## Advices 
+- Always write code in english
+- Avoid using ```global```
