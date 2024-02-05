@@ -6,7 +6,17 @@ import logging
 from tkinter import *
 
 from src.functions import *
-from src.vars import *
+from src.vars import (
+    expression,
+    geometry,
+    boutons,
+    noir,
+    bleu,
+    rouge,
+    white,
+    ligne,
+    colonne,
+)
 
 
 def main():
