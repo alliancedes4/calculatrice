@@ -1,69 +1,61 @@
-# Installer tkinter avec "pip3 install tkinter"
+"""
+Main file for the calculator
+"""
 
-# Couleur -
-# noir: #101419
-# bleu: #476C9B
-# rouge: #984447
-"""
-#789*
-#456-
-#123+
-#0,/=
-"""
+import logging
+
 from tkinter import *
 
-expression = ""
+from src.functions import appuyer, calculer, effacer
+from src.vars import (
+    bleu,
+    boutons,
+    colonne,
+    geometry,  # expression,
+    ligne,
+    noir,
+    rouge,
+    white,
+)
 
-def appuyer(touche):
-    if touche == "=":
-        calculer()
-        return
-    
+
+def main(ligne, colonne):
+    """main function to run the calculator app"""
+
+    global equation
     global expression
-    expression += str (touche)
-    equation.set(expression)
 
-def calculer():
-    try:
-        global expression
-        total = str(eval(expression))
-        
-        equation.set(total)
-        expression = total
-    except:
-        equation.set("error")
-        expression = ""
-
-def effacer():
-    global expression
     expression = ""
-    equation.set("")
+    equation = ""
 
-if __name__ == "__main__":
     gui = Tk()
 
-    #couleur de fond
+    # couleur de fond
     gui.title("Calculatrice")
 
-    #taille de la fenetre
-    gui.geometry("235x385")
+    # taille de la fenetre
+    gui.geometry(geometry)
 
     # Variable pour stoker le contenu actuel
     equation = StringVar()
-    
-    #boite de resultats 
-    resultat = Label(gui, bg="#101419", fg="#ffffff", textvariable=equation, height="2")
-    resultat.grid(columnspan=4)
-    
-    #Boutons
-    boutons = [7, 8, 9, "+", 4, 5, 6, "-", 1, 2, 3, "*", 0, "/", ".", "="]
-    ligne = 1
-    colonne = 0
 
+    # boite de resultats
+    resultat = Label(gui, bg=noir, fg=white, textvariable=equation, height="2")
+    resultat.grid(columnspan=4)
+
+    # Boutons
     for bouton in boutons:
-        b = Label(gui, text=str(bouton), bg="#476C9B", fg="#ffffff", height=4, width=6)
+        b = Label(gui, text=str(bouton), bg=bleu, fg=white, height=4, width=6)
+
         # Rendre le texte clicable
-        b.bind("<Button-1>", lambda e, bouton=bouton: appuyer(bouton))
+        b.bind(
+            "<Button-1>",
+            lambda e, bouton=bouton: appuyer(
+                bouton,
+                expression=expression,
+                equation=equation,
+            ),
+        )
 
         b.grid(row=ligne, column=colonne)
 
@@ -72,11 +64,15 @@ if __name__ == "__main__":
             colonne = 0
             ligne += 1
 
-    b = Label(gui, text="Effacer", bg="#984447", fg="#ffffff", height=4, width=26)
-    b.bind("<Button-1>", lambda e: effacer())
+    b = Label(gui, text="Effacer", bg=rouge, fg=white, height=4, width=26)
+    b.bind(
+        "<Button-1>",
+        lambda e: effacer(expression=expression, equation=equation),
+    )
     b.grid(columnspan=4)
-    print("Le script a été exécuté avec succès.")
+    logging.warning("Le script a été exécuté avec succès")
     gui.mainloop()
 
 
-    
+if __name__ == "__main__":
+    main(ligne, colonne)
