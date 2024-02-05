@@ -1,0 +1,6 @@
+# code quality
+black
+flake8
+isort
+pycln
+IPython
