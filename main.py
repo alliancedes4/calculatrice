@@ -3,23 +3,24 @@ Main file for the calculator
 """
 
 import logging
+
 from tkinter import *
 
+from src.functions import appuyer, calculer, effacer
+from src.vars import (
+    bleu,
+    boutons,
+    colonne,
+    geometry,  # expression,
+    ligne,
+    noir,
+    rouge,
+    white,
+)
 
-def main():
+
+def main(ligne, colonne):
     """main function to run the calculator app"""
-
-    from src.functions import appuyer, calculer, effacer
-    from src.vars import (
-        bleu,
-        boutons,
-        colonne,
-        geometry,  # expression,
-        ligne,
-        noir,
-        rouge,
-        white,
-    )
 
     global equation
     global expression
@@ -74,4 +75,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(ligne, colonne)
