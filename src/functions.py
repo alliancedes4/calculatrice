@@ -12,16 +12,23 @@ def calculer(expression, equation):
         total = str(eval(expression))
         equation.set(total)
         expression = total
+
     except Exception as e:
         logging.error(e)
         equation.set("error")
         expression = ""
+
+    # global expression
+    # global equation
 
     return equation, expression
 
 
 def appuyer(touche, expression, equation):
     """manage the button press event and updates the expression label"""
+
+    # global expression
+    # global equation
 
     if touche == "=":
         calculer(expression, equation)
@@ -34,6 +41,9 @@ def appuyer(touche, expression, equation):
 
 def effacer(expression, equation):
     """manage the clear button press event and updates the expression label"""
+
+    # global expression
+    # global equation
 
     expression = ""
     equation.set("")
